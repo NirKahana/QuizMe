@@ -25,7 +25,7 @@ This system is destined to offer quick quizes to cyber4s students, and display t
   <strong><em>questions:</em></strong> id(number), title(string), quiz_id(number)
 </div>
 <div>
-  <strong><em>fields:</em></strong> id(number), title(string), question_id(number)
+  <strong><em>fields:</em></strong> id(number), title(string), iscorrect(boolean), question_id(number)
 </div>
 <br></br>
 <h2>Server Requirements</h2>
@@ -43,14 +43,14 @@ This system is destined to offer quick quizes to cyber4s students, and display t
 <br></br>
 
 <h2>Front-End Requirements:</h2>
+<div>
+<strong>Login Page (use FireBase authentication)</strong>
+</div>
+<div>
+<strong>Sign-Up Page (use FireBase authentication)</strong>
+</div>
+<div>
 <br></br>
-<div>
-<strong>Login Page</strong>
-</div>
-<div>
-<strong>Sign-Up Page</strong>
-</div>
-<div>
 <strong>Landing Page:</strong>
 Header, "take a Quiz":
 <div>
@@ -66,3 +66,35 @@ Header, "take a Quiz":
 -Quiz number 3
 </div>
 </div>
+<br></br>
+<strong>Quiz Page:</strong>
+<div>
+<em>Node.js</em>
+</div>
+<div>
+Question number: 1/15
+</div>
+<div>
+Time left: 01:59 
+</div>
+<br></br>
+<div>
+What is Node?
+</div>
+<ol>
+<li>
+Field number 1
+</li>
+<li>
+Field number 2
+</li>
+<li>
+Field number 3
+</li>
+<li>
+Field number 4
+</li>
+</ol>
+<button>
+Submit
+</button>
