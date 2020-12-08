@@ -29,9 +29,17 @@ const MenuPopupState = () => {
       />
       <Menu
         {...bindMenu(popupState)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}
         getContentAnchorEl={null}
         anchorEl={menuIconRef.current}
+        // If wanted, it is possible to set the menu's position 
+        // to be relative to the document, instead of the AnchorEl,
+        // by setting 'anchorReference' to 'anchorPosition'
+        // anchorReference='anchorEl' 
+        // anchorPosition={{
+        //   top: 55,
+        //   left: 0
+        // }}
       >
         <MenuItem onClick={popupState.close}>Node.js</MenuItem>
         <MenuItem onClick={popupState.close}>CSS</MenuItem>

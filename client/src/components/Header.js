@@ -13,7 +13,6 @@ export default function Header() {
       <AppBar>
         <Toolbar variant="dense">
           <IconButton edge="start" color="secondary" aria-label="menu">
-            {/* <MenuRoundedIcon /> */}
             <Menu />
             <Typography variant="h6" color="inherit">
               QuizMe
