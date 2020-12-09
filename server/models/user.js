@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Submission, {
         foreignKey: 'userId'
       })
+      this.belongsToMany(models.Quiz, {
+        through: models.Submission,
+        foreignKey: 'userId',
+        otherKey: 'quizId'
+      })
     }
   };
   User.init({
@@ -22,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      defaultValue: false
     }
   }, {
     sequelize,

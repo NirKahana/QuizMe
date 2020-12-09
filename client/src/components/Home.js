@@ -1,11 +1,24 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Header from './Header'
+import Header from "./Header";
+import QuizzesList from "./QuizzesList";
+
+const useStyles = makeStyles({
+  container: {
+    marginTop: "5em",
+  },
+});
 
 export default function Home() {
-  return (
+  const classes = useStyles();
+  return QuizzesList ?(
     <>
-      <Header />
+      {/* <Container className={classes.container}> */}
+        {/* <NavBar /> */}
+        <Header />
+        <QuizzesList />
+      {/* </Container> */}
     </>
-  );
+  ) : null
 }

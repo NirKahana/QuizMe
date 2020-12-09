@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Question, {
         foreignKey: "quizId",
       });
+      this.belongsToMany(models.User, {
+        through: models.Submission,
+        foreignKey: 'quizId',
+        otherKey: 'userId'
+      })
+      this.belongsToMany(models.Label, {
+        through: models.QuizLabel,
+        foreignKey: 'quizId',
+        otherKey: 'labelId'
+      })
     }
   }
   Quiz.init(

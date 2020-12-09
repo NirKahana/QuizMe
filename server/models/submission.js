@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     quizId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    rank: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

@@ -1,25 +1,24 @@
 import React from "react";
-import Typography from '@material-ui/core/Typography';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-// import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
-import Menu from './Menu';
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
+});
 
 export default function Header() {
+  const classes = useStyles();
   return (
     <>
-      <AppBar>
-        <Toolbar variant="dense">
-          <IconButton edge="start" color="secondary" aria-label="menu">
-            <Menu />
-            <Typography variant="h6" color="inherit">
-              QuizMe
-            </Typography>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <Container className={classes.container}>
+        <Typography variant="h2" color="primary">
+          Welcome To QuizMe! 
+        </Typography>
+      </Container>
     </>
   );
 }

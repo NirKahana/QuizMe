@@ -1,73 +1,73 @@
 const fields = [
   {
     id: 1,
-    title: "asoinasoif",
+    title: "Single-threaded",
     is_correct: false,
     question_id: 1
   },
   {
     id: 2,
-    title: "asoinasoif",
+    title: "Multi-threaded",
     is_correct: false,
     question_id: 1
   },
   {
     id: 3,
-    title: "asoinasoif",
+    title: "It can be either multi-threaded or single-threaded",
     is_correct: false,
     question_id: 1
   },
   {
     id: 4,
-    title: "asoinasoif",
+    title: "None of the above",
     is_correct: true,
     question_id: 1
   },
   {
     id: 5,
-    title: "asoinasoif",
+    title: "Phython",
     is_correct: false,
     question_id: 2
   },
   {
     id: 6,
-    title: "asoinasoif",
+    title: "PHP",
     is_correct: false,
     question_id: 2
   },
   {
     id: 7,
-    title: "asoinasoif",
+    title: "JavaScript",
     is_correct: false,
     question_id: 2
   },
   {
     id: 8,
-    title: "asoinasoif",
+    title: "C",
     is_correct: true,
     question_id: 2
   },
   {
     id: 9,
-    title: "asoinasoif",
+    title: "Renders a JSX element to the screen",
     is_correct: false,
     question_id: 3
   },
   {
     id: 10,
-    title: "asoinasoif",
+    title: "Re-renders the screen",
     is_correct: false,
     question_id: 3
   },
   {
     id: 11,
-    title: "asoinasoif",
+    title: "Reloads the page",
     is_correct: false,
     question_id: 3
   },
   {
     id: 12,
-    title: "asoinasoif",
+    title: "Compiling the code of the file",
     is_correct: true,
     question_id: 3
   },

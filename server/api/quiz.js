@@ -1,9 +1,41 @@
 const { Router } = require('express');
-const { Quiz, Question, Field } = require('../models');
+const { Quiz, Question, Field, Submission, User, } = require('../models');
+const db = require('../models/index');
 
 const router = Router();
 
+// GET ALL QUIZZES
+router.get('/all', async (req, res) => {
+  const quizzes = await Quiz.findAll();
+  return res.json(quizzes);
+});
 
+// GET SUBMISSIONS OF QUIZ
+router.get('/:id/submissions', async (req, res) => {
+  const quiz = await Quiz.findByPk(req.params.id, {
+    attributes: ["name"],
+    include: [{model: Submission, attributes: ['rank'], include: [{model: User, attributes: ['name']}]}]
+  });
+  return res.json(quiz);
+});
+
+// GET QUIZ BY ID
+router.get('/:id', async (req, res) => {
+  const quiz = await Quiz.findByPk(req.params.id, {
+    attributes: ["name"],
+    include: [{model: Question, attributes: ["id", "title"], include: [{model: Field, attributes: ['id', 'title']}]}]
+  });
+  return res.json(quiz);
+});
+
+// GET QUESTIONS OF QUIZ
+router.get('/:id/questions', async (req, res) => {
+  const quiz = await Quiz.findByPk(req.params.id);
+  const questions = await quiz.getQuestions();
+  return res.json(questions);
+});
+
+// POST A NEW QUIZ
 router.post('/', async (req, res) => {
   let body = req.body;
   if (!body.name) {
@@ -13,54 +45,5 @@ router.post('/', async (req, res) => {
     return res.json(newQuiz);
   }
 });
-
-
-router.get('/all', async (req, res) => {
-  const quizzes = await Quiz.findAll();
-  return res.json(quizzes);
-});
-
-router.get('/:id', async (req, res) => {
-  const quiz = await Quiz.findByPk(req.params.id, {
-    attributes: ["name"],
-    include: [{model: Question, attributes: ["title"], include: [{model: Field, attributes: ['title']}]}]
-  });
-  return res.json(quiz);
-});
-// router.get('/:id', async (req, res) => {
-//   const quiz = await Quiz.findByPk(req.params.id, {
-//     attributes: ["name"],
-//     include: [{model: Question, attributes: ["title"]}]
-//   });
-//   return res.json(quiz);
-// });
-
-// router.get('/:id/songs', async (req, res) => {
-//   const artist = await Artist.findByPk(req.params.id, {
-//     include: [{model: Song}]
-//   });
-//   return res.json(artist);
-// });
-
-// router.get('/:id/albums', async (req, res) => {
-//   const artist = await Artist.findByPk(req.params.id, {
-//     include: [{model: Album}]
-//   });
-//   return res.json(artist);
-// });
-
-// router.get('/:id/all', async (req, res) => {
-//   const artist = await Artist.findByPk(req.params.id, {
-//     include: [{model: Album, include: [{model: Song}]}]
-//   });
-  
-//   return res.json(artist);
-// });
-
-// router.get('/:artistId/songs', async (req, res) => {
-//   const artist = await Artist.findByPk(req.params.artistId);
-//   const songs = await artist.getSongs();
-//   return res.json(artists);
-// });
 
 module.exports = router;
