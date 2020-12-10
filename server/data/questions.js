@@ -16,7 +16,7 @@ const questions = [
   },
   {
     id: 4,
-    title: "What does OnComponentDidMount do?",
+    title: "What is the equivalent of componentDidMount in a React function component?",
     quiz_id: 2
   },
   {

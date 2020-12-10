@@ -12,13 +12,10 @@ const useStyles = makeStyles({
 
 export default function Home() {
   const classes = useStyles();
-  return QuizzesList ?(
+  return QuizzesList ? (
     <>
-      {/* <Container className={classes.container}> */}
-        {/* <NavBar /> */}
         <Header />
         <QuizzesList />
-      {/* </Container> */}
     </>
   ) : null
 }

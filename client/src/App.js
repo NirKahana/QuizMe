@@ -18,8 +18,8 @@ function App() {
   return (
     <>
       <Container className={classes.container}>
-        <NavBar />
         <Router>
+        <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/quiz/:id" component={QuizPage} />

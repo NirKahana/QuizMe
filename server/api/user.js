@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { User, Quiz, Question, Field } = require('../models');
+const { User, Submission, Quiz, Question, Field } = require('../models');
 
 const router = Router();
 
@@ -11,9 +11,28 @@ router.get('/all', async (req, res) => {
 
 // GET USER BY ID 
 router.get('/:id', async (req, res) => {
-  const quiz = await Quiz.findByPk(req.params.id);
-  return res.json(quiz);
+  const user = await User.findByPk(req.params.id);
+  return res.json(user);
 });
+// GET USER SUBMISSIONS 
+router.get('/:id/submissions', async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  const userSubmissions = await user.getSubmissions({
+    attributes: ["quizId", "rank"]
+  });
+  return res.json(userSubmissions);
+});
+// // GET USER SUBMISSIONS 
+// router.get('/:id/submissions', async (req, res) => {
+//   const user = await User.findByPk(req.params.id, {
+//     attributes: ["id", "name"],
+//     include: [{
+//       model: Submission,
+//       attributes: ["quizId", "rank"]
+//     }]
+//   });
+//   return res.json(user);
+// });
 
 // POST A NEW USER
 router.post('/', async (req, res) => {

@@ -9,7 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
-// import { PanoramaFishEye, CheckCircleOutline } from "@material-ui/icons/";
+import { CheckCircleOutline } from "@material-ui/icons/";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,15 +37,22 @@ export default function QuizzesList() {
   const classes = useStyles();
 
   const [quizzes, setQuizzes] = useState();
+  const [userSubmissions, setUserSubmissions] = useState();
+
   useEffect(() => {
     const fetchQuizzes = async () => {
       const quizzes = (await axios.get("/quizzes/all")).data;
       setQuizzes(quizzes);
     };
+    const fetchUserSubmissions = async () => {
+      const userSubmissions = (await axios.get(`/users/1/submissions`)).data;
+      setUserSubmissions(userSubmissions);
+    };
+    fetchUserSubmissions();
     fetchQuizzes();
   }, []);
 
-  return quizzes ? (
+  return (quizzes && userSubmissions) ? (
     <>
       <Container className={classes.container}>
         <Container className={classes.list}>
@@ -59,23 +66,14 @@ export default function QuizzesList() {
                     disableTypography
                   ></ListItemText>
                   <ListItemIcon>
-                    <RadioButtonUncheckedIcon edge="end" />
+                    {(userSubmissions.some(sub => sub.quizId === quiz.id))
+                    ? <CheckCircleOutline edge="end" />
+                    : <RadioButtonUncheckedIcon edge="end" />
+                    }
                   </ListItemIcon>
                 </ListItem>
               </Link>
             ))}
-            {/* <ListItem className={classes.li}>
-              <ListItemText primary="React" className={classes.text} disableTypography></ListItemText>
-              <ListItemIcon>
-                <PanoramaFishEye edge="end"/>
-              </ListItemIcon>
-            </ListItem>
-            <ListItem className={classes.li}>
-              <ListItemText primary="CSS" className={classes.text} disableTypography></ListItemText>
-              <ListItemIcon>
-                <CheckCircleOutline edge="end"/>
-              </ListItemIcon>
-            </ListItem> */}
           </List>
         </Container>
       </Container>

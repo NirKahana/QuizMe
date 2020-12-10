@@ -2,7 +2,7 @@ const fields = [
   {
     id: 1,
     title: "Single-threaded",
-    is_correct: false,
+    is_correct: true,
     question_id: 1
   },
   {
@@ -20,7 +20,7 @@ const fields = [
   {
     id: 4,
     title: "None of the above",
-    is_correct: true,
+    is_correct: false,
     question_id: 1
   },
   {
@@ -38,19 +38,19 @@ const fields = [
   {
     id: 7,
     title: "JavaScript",
-    is_correct: false,
+    is_correct: true,
     question_id: 2
   },
   {
     id: 8,
     title: "C",
-    is_correct: true,
+    is_correct: false,
     question_id: 2
   },
   {
     id: 9,
     title: "Renders a JSX element to the screen",
-    is_correct: false,
+    is_correct: true,
     question_id: 3
   },
   {
@@ -68,79 +68,79 @@ const fields = [
   {
     id: 12,
     title: "Compiling the code of the file",
-    is_correct: true,
+    is_correct: false,
     question_id: 3
   },
   {
     id: 13,
-    title: "asoinasoif",
+    title: "The useState hook",
     is_correct: false,
     question_id: 4
   },
   {
     id: 14,
-    title: "asoinasoif",
-    is_correct: false,
+    title: "The useEffect hook, with an empty dependencies array",
+    is_correct: true,
     question_id: 4
   },
   {
     id: 15,
-    title: "asoinasoif",
+    title: "the return value of the function given in the useEffect's first argument",
     is_correct: false,
     question_id: 4
   },
   {
     id: 16,
-    title: "asoinasoif",
-    is_correct: true,
+    title: "There is no equivalent of componentDidMount in React function component",
+    is_correct: false,
     question_id: 4
   },
   {
     id: 17,
-    title: "asoinasoif",
-    is_correct: false,
+    title: "The order of the elements content within the element",
+    is_correct: true,
     question_id: 5
   },
   {
     id: 18,
-    title: "asoinasoif",
+    title: "The horizontal position of the elements content within the element",
     is_correct: false,
     question_id: 5
   },
   {
     id: 19,
-    title: "asoinasoif",
+    title: "The vertical position of the elements content within the element",
     is_correct: false,
     question_id: 5
   },
   {
     id: 20,
-    title: "asoinasoif",
-    is_correct: true,
+    title: "the position of the elements content, horizontally or vertically",
+    is_correct: false,
     question_id: 5
   },
   {
     id: 21,
-    title: "asoinasoif",
-    is_correct: false,
+    title: "align-items determines the position of the items within the elements, while align-content determines the layout of the rows/columns",
+    is_correct: true,
     question_id: 6
   },
   {
     id: 22,
-    title: "asoinasoif",
+    title: "align-items is responsible of horizontal layout, while align-content is responsible of vertical layout",
     is_correct: false,
     question_id: 6
   },
   {
     id: 23,
-    title: "asoinasoif",
+    title: "They have the same effect, while align-content is no longer in use",
     is_correct: false,
     question_id: 6
   },
   {
     id: 24,
-    title: "asoinasoif",
-    is_correct: true,
+    title: "None of the above",
+    is_correct: false,
     question_id: 6
   },
   {

@@ -1,0 +1,17 @@
+POST http://localhost:8080/api/submissions
+content-type: application/json
+
+{
+  "userId": 1,
+  "quizId": 1,
+  "answersSelected": [
+    {
+      "questionId": 1,
+      "answerId": 2
+    },
+    {
+      "questionId": 2,
+      "answerId": 6
+    }
+  ]
+}

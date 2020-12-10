@@ -22,7 +22,7 @@ router.get('/:id/submissions', async (req, res) => {
 // GET QUIZ BY ID
 router.get('/:id', async (req, res) => {
   const quiz = await Quiz.findByPk(req.params.id, {
-    attributes: ["name"],
+    attributes: ["id", "name"],
     include: [{model: Question, attributes: ["id", "title"], include: [{model: Field, attributes: ['id', 'title']}]}]
   });
   return res.json(quiz);
