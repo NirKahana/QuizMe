@@ -6,18 +6,18 @@ import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   quiz: {
-    fontWeight: '600',
-    fontSize: '1.5em'
+    fontWeight: "600",
+    fontSize: "1.5em",
   },
   field: {
-    cursor: 'pointer',
-    margin: '0.25em',
+    cursor: "pointer",
+    margin: "0.25em",
     backgroundColor: theme.palette.background.paper,
-    padding: '5px'
-  }
+    padding: "5px",
+  },
 }));
 
-export default function Home() {
+export default function QuizPage() {
   const { id } = useParams();
   const classes = useStyles();
   const [quiz, setQuiz] = useState();
@@ -25,6 +25,9 @@ export default function Home() {
   const [answers, setAnswers] = useState([]);
   const [quizIsOver, setQuizIsOver] = useState(false);
   const [finishTitle, setFinishTitle] = useState("Loading...");
+  /// TIME REMAINING
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(5);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -34,79 +37,91 @@ export default function Home() {
     fetchQuiz();
   }, []);
 
-  // useEffect(() => {
-    //   if(quizIsOver){
-      //     submitQuiz();
-      //   }
-      // },[quizIsOver])
-      
-      const onAnswerSelect = (e) => {
-        const selectedAnswer = e.target.innerText;
-        const CurrentFieldsArray = quiz.Questions[currentQuestionIndex].Fields;
-        const selectedAnswerId = CurrentFieldsArray.find(
-          (field) => field.title === selectedAnswer
-          ).id;
-          setAnswers([
-            ...answers,
-            {
-              questionId: quiz.Questions[currentQuestionIndex].id,
-              answerId: selectedAnswerId,
-            },
-    ]);
-    quiz.Questions.length - 1 > currentQuestionIndex
-    ? setCurrentQuestionIndex(currentQuestionIndex + 1)
-    : submitQuiz();
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if(seconds > 0) {
+        console.log(seconds);
+        setSeconds(seconds => seconds-1);
+      } else if(seconds === 0) {
+        if(minutes > 0) {
+          console.log("minutes > 0");
+          setMinutes(minutes => minutes-1);
+          setSeconds(59);
+        } else if(minutes === 0){
+          clearInterval(countdown);
+          onAnswerSelect(-1, countdown);
+        }
+      };
+      console.log('interval');
+    },1000);
+    return () => {
+      console.log("interval ended");
+      clearInterval(countdown);
+    }
+  }, [seconds, minutes]);
+
+  const findSelectedAnswerIdByTitle = (title) => {
+    const currentFieldsArray = quiz.Questions[currentQuestionIndex].Fields;
+    const selectedAnswer = currentFieldsArray.find(
+      (field) => field.title === title
+    );
+    const id = selectedAnswer ? selectedAnswer.id : -1;
+    return id;
   };
-  
+  const onAnswerSelect = (selectedAnswerId, interval) => {
+    if (!quizIsOver) {
+      console.log(selectedAnswerId);
+      setAnswers([
+        ...answers,
+        {
+          questionId: quiz.Questions[currentQuestionIndex].id,
+          answerId: selectedAnswerId,
+        },
+      ]);
+      if (quiz.Questions.length - 1 > currentQuestionIndex) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setMinutes(1);
+        setSeconds(30);
+      } else {
+        if(interval){
+          clearInterval(interval);
+        };
+        submitQuiz();
+      }
+    }
+  };
   const submitQuiz = async () => {
     try {
       setQuizIsOver(true);
-      const submission = await axios.post("/submissions", {
+      await axios.post("/submissions", {
         userId: 3, // 3
         quizId: quiz.id, // 1
-        answersSelected: answers
+        answersSelected: answers,
       });
       setFinishTitle("Well done, quiz submitted successfully");
-    }
-    catch(error) {
+    } catch (error) {
       const errorMessage = error.response.data.message;
       setFinishTitle(errorMessage);
     }
-
-    // fetch("/submissions", 
-    //     {
-    //       body: JSON.stringify({
-    //         userId: 3, // 3
-    //         quizId: quiz.id, // 1
-    //         answersSelected: answers
-    //       }),
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json;charset=utf-8'"
-    //       }
-    //     }).then(result => {
-    //       console.log(result);
-    //       result.json().then(res => {
-    //         console.log(res);
-    //       })
-    //     })
-    //     .catch(err => {
-    //       console.log(err.message);
-    //     })
-
-    // submission ? setFinishTitle("Well done, quiz submitted successfully") : setFinishTitle("Failed to submit quiz, please try again later")
   };
-  
+  // console.log("minutes: ", minutes, "seconds: ", seconds);
   if (quiz) {
     if (!quizIsOver) {
       return (
         <>
           <Container className={classes.quiz}>
-            <div>{quiz.Questions[currentQuestionIndex].title}</div>
+            <div>
+              <div>{quiz.Questions[currentQuestionIndex].title}</div>
+              <div>Time Remaining: {minutes}:{(seconds < 10) ? "0"+seconds : seconds}</div>
+            </div>
             <ol>
               {quiz.Questions[currentQuestionIndex].Fields.map(
                 (field, index) => (
-                  <li key={index} onClick={onAnswerSelect} className={classes.field}>
+                  <li
+                    key={index}
+                    onClick={(e) => onAnswerSelect(findSelectedAnswerIdByTitle(e.target.value))}
+                    className={classes.field}
+                  >
                     {field.title}
                   </li>
                 )
