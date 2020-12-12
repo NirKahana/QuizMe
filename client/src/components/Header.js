@@ -6,17 +6,18 @@ import Container from "@material-ui/core/Container";
 const useStyles = makeStyles({
   container: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: '5vh 0'
   }
 });
 
-export default function Header() {
+export default function Header({ text }) {
   const classes = useStyles();
   return (
     <>
       <Container className={classes.container}>
         <Typography variant="h2" color="primary">
-          Welcome To QuizMe! 
+          {text} 
         </Typography>
       </Container>
     </>

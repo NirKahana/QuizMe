@@ -18,18 +18,19 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: "100%",
-    maxWidth: 500,
+    maxWidth: 550,
     backgroundColor: theme.palette.background.paper,
-    padding: "0 0.5em",
+    padding: "0 0.75em",
     borderRadius: "5px",
   },
   li: {
     margin: "0.75em 0",
     backgroundColor: theme.palette.primary.main,
-  },
-  text: {
     color: theme.palette.secondary.main,
     fontWeight: 500,
+    borderRadius: '3px'
+  },
+  text: {
   },
 }));
 
@@ -66,7 +67,7 @@ export default function QuizzesList() {
                     disableTypography
                   ></ListItemText>
                   <ListItemIcon>
-                    {(userSubmissions.some(sub => sub.quizId === quiz.id))
+                    {(userSubmissions.submissions.some(sub => sub.quizId === quiz.id))
                     ? <CheckCircleOutline edge="end" />
                     : <RadioButtonUncheckedIcon edge="end" />
                     }
