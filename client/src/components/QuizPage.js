@@ -44,7 +44,6 @@ export default function QuizPage() {
         setSeconds(seconds => seconds-1);
       } else if(seconds === 0) {
         if(minutes > 0) {
-          console.log("minutes > 0");
           setMinutes(minutes => minutes-1);
           setSeconds(59);
         } else if(minutes === 0){
@@ -52,10 +51,8 @@ export default function QuizPage() {
           onAnswerSelect(-1, countdown);
         }
       };
-      console.log('interval');
     },1000);
     return () => {
-      console.log("interval ended");
       clearInterval(countdown);
     }
   }, [seconds, minutes]);

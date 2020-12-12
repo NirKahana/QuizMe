@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { User, Submission, Quiz, Question, Field } = require('../models');
+const db = require("../models/index");
 
 const router = Router();
 
@@ -17,10 +18,28 @@ router.get('/:id', async (req, res) => {
 // GET USER SUBMISSIONS 
 router.get('/:id/submissions', async (req, res) => {
   const user = await User.findByPk(req.params.id);
-  const userSubmissions = await user.getSubmissions({
-    attributes: ["quizId", "rank"]
+ 
+  const rankStats = await user.getSubmissions({
+    attributes: [
+      [db.sequelize.fn('AVG', db.sequelize.col('rank')), 'averageRank'],
+      [db.sequelize.fn('MAX', db.sequelize.col('rank')), 'highestRank'],
+    ]
   });
-  return res.json(userSubmissions);
+  const userSubmissions = await user.getSubmissions({
+    attributes: ["quizId", "rank", 
+    // [db.sequelize.fn('AVG', db.sequelize.col('rank')), 'averageRank']
+    ],
+    include: [{
+      model: Quiz,
+      attributes: ["name"]
+    }],
+    // order: [['rank', 'DESC']]
+  });
+  const userStats = {
+    stats: rankStats[0],
+    submissions: userSubmissions
+  }
+  return res.json(userStats);
 });
 // // GET USER SUBMISSIONS 
 // router.get('/:id/submissions', async (req, res) => {

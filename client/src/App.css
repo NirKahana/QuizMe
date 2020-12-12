@@ -1,17 +1,3 @@
-/* body {
-  font-family: 'Raleway', sans-serif;
+html{
+  overflow-y: overlay;
 }
-.flex {
-  display: flex;
-}
-.justify-center {
-  justify-content: center;
-}
-.wrap {
-  flex-wrap: wrap;
-}
-.center {
-}
-.w60 {
-  width: 60vw;
-} */
