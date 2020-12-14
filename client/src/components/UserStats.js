@@ -9,6 +9,7 @@ import {
   ListItemText,
   Collapse,
   Typography,
+  Divider
 } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1em",
     borderRadius: "3px",
   },
-  listItemAndCollapse: {
+  greenBackground: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
   },
@@ -36,13 +37,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   collapseListItem: {
-    paddingLeft: "2em",
-    width: "60%",
-    margin: '1em',
+    width: "40%",
+    margin: '0 1em',
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.main,
     fontWeight: 700,
-    borderRadius: '3px'
+  },
+  divider: {
+    backgroundColor: theme.palette.primary.main
   },
   button: {
     margin: "0 1em",
@@ -62,7 +64,6 @@ export default function UserStats() {
     fetchUserSubmissions();
   }, []);
   const [quizzesSubmittedIsOpen, setQuizzesSubmittedIsOpen] = useState(false);
-  const [highestRankIsOpen, setHighestRankIsOpen] = useState(false);
 
   const numOfSubs = userSubmissions && userSubmissions.submissions.length;
   const highestRank = userSubmissions && userSubmissions.stats.highestRank;
@@ -74,7 +75,8 @@ export default function UserStats() {
       <Container>
         <Container maxWidth={"md"} className={classes.stats}>
           <List>
-            <div className={classes.listItemAndCollapse}>
+            {/* quizzes submitted */}
+            <div className={classes.greenBackground}>
               <ListItem
                 className={classes.stat}
                 button
@@ -82,15 +84,16 @@ export default function UserStats() {
                   setQuizzesSubmittedIsOpen(!quizzesSubmittedIsOpen)
                 }
               >
-                <ListItemText className={classes.statTitle} disableTypography>
-                  Quizzes Submitted: {numOfSubs}
-                </ListItemText>
+                <ListItemText primary={`Quizzes Submitted: ${numOfSubs}`} 
+                              className={classes.statTitle} 
+                              disableTypography
+                />
                 {quizzesSubmittedIsOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+              {/* quizzes submitted list (Collapse) */}
               <Collapse
                 className={classes.collapse}
                 in={quizzesSubmittedIsOpen}
-                timeout="auto"
                 unmountOnExit
               >
                 <List component="div" disablePadding>
@@ -99,6 +102,7 @@ export default function UserStats() {
                       <ListItem className={classes.collapseListItem}>
                         <ListItemText primary={`Quiz Name: ${userSub.Quiz.name}`} disableTypography />
                       </ListItem>
+                      <Divider className={classes.divider}/>
                       <ListItem className={classes.collapseListItem}>
                         <ListItemText primary={`Rank: ${userSub.rank}`} disableTypography />
                       </ListItem>
@@ -108,30 +112,17 @@ export default function UserStats() {
               </Collapse>
             </div>
 
-            <div className={classes.listItemAndCollapse}>
+            <div className={classes.greenBackground}>
               <ListItem
                 className={classes.stat}
-                button
-                onClick={() => setHighestRankIsOpen(!highestRankIsOpen)}
               >
                 <ListItemText className={classes.statTitle} disableTypography>
                   Highest Rank: {highestRank}
                 </ListItemText>
-                {highestRankIsOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              <Collapse
-                className={classes.collapse}
-                in={highestRankIsOpen}
-                timeout="auto"
-                unmountOnExit
-              >
-                <List component="div" disablePadding>
-                  "hello"
-                </List>
-              </Collapse>
             </div>
 
-            <div className={classes.listItemAndCollapse}>
+            <div className={classes.greenBackground}>
               <ListItem
                 className={classes.stat}
                 variant={"div"}

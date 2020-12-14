@@ -11,12 +11,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   quiz: {
-    width: '60vw',
-    maxWidth: '60vw',
+    width: '65vw',
+    maxWidth: '65vw',
     backgroundColor: theme.palette.background.paper,
-    padding: '1em',
-    // fontWeight: "600",
-    // fontSize: "1.5em",
+    padding: '1em 1.5em',
   },
   questionTitle: {
     fontSize: '2em',
@@ -65,25 +63,25 @@ export default function QuizPage() {
     fetchQuiz();
   }, []);
 
-  // useEffect(() => {
-  //   const countdown = setInterval(() => {
-  //     if(seconds > 0) {
-  //       console.log(seconds);
-  //       setSeconds(seconds => seconds-1);
-  //     } else if(seconds === 0) {
-  //       if(minutes > 0) {
-  //         setMinutes(minutes => minutes-1);
-  //         setSeconds(59);
-  //       } else if(minutes === 0){
-  //         clearInterval(countdown);
-  //         onAnswerSelect(-1, countdown);
-  //       }
-  //     };
-  //   },1000);
-  //   return () => {
-  //     clearInterval(countdown);
-  //   }
-  // }, [seconds, minutes]);
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if(seconds > 0) {
+        console.log(seconds);
+        setSeconds(seconds => seconds-1);
+      } else if(seconds === 0) {
+        if(minutes > 0) {
+          setMinutes(minutes => minutes-1);
+          setSeconds(59);
+        } else if(minutes === 0){
+          clearInterval(countdown);
+          onAnswerSelect(-1, countdown);
+        }
+      };
+    },1000);
+    return () => {
+      clearInterval(countdown);
+    }
+  }, [seconds, minutes]);
 
   const findSelectedAnswerIdByTitle = (title) => {
     const currentFieldsArray = quiz.Questions[currentQuestionIndex].Fields;
